@@ -46,22 +46,28 @@ def populate_database(session, author_book_publisher_data):
     session.close()
 
 def main():
-    print('main')
+    print('starting')
     # csvfile = './project/data/author_book_publisher.csv'
     # data = get_author_book_publisher_data(csvfile)
     # author_book_publisher_data = data
-    print(pathlib.Path(project.__file__))
-    data = get_author_book_publisher_data(pathlib.Path(project.__file__).parent / "data/author_book_publisher.csv")
+    print("paths:", pathlib.Path(project.__file__), pathlib.Path(project.__file__).parent)
+
+    data = get_author_book_publisher_data(pathlib.Path(project.__file__).parent / 'data/author_book_publisher.csv')
     author_book_publisher_data = data
 
-    sqlite_filepath = "author_book_publisher.db"
-    print(sqlite_filepath)
+    print("data table:", author_book_publisher_data)
+
+    sqlite_filepath = pathlib.Path(project.__file__).parent / 'data/author_book_publisher.db'
+    print("database file:", sqlite_filepath)
+
     # does the database exist?
     if os.path.exists(sqlite_filepath):
         os.remove(sqlite_filepath)
 
     # create the database
-    engine = create_engine(f"sqlite:///{sqlite_filepath}")
+    # engine = create_engine(f"sqlite:///{sqlite_filepath}")
+    engine = create_engine("mysql+mysqldb://kris:britta@localhost/data5zero")
+
     Base.metadata.create_all(engine)
     Session = sessionmaker()
     Session.configure(bind=engine)
