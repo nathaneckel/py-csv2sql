@@ -1,0 +1,75 @@
+nathan@Zipcoders-MacBook-Pro-8 py-csv2sql % source venv/bin/activate
+(venv) nathan@Zipcoders-MacBook-Pro-8 py-csv2sql % pip3 install sqlalchemy
+
+Collecting sqlalchemy
+  Using cached SQLAlchemy-2.0.28-cp39-cp39-macosx_11_0_arm64.whl (2.1 MB)
+Collecting typing-extensions>=4.6.0
+  Using cached typing_extensions-4.10.0-py3-none-any.whl (33 kB)
+Installing collected packages: typing-extensions, sqlalchemy
+Successfully installed sqlalchemy-2.0.28 typing-extensions-4.10.0
+WARNING: You are using pip version 21.2.4; however, version 24.0 is available.
+You should consider upgrading via the '/Users/nathan/Dev/Labs/py-csv2sql/venv/bin/python3 -m pip install --upgrade pip' command.
+(venv) nathan@Zipcoders-MacBook-Pro-8 py-csv2sql % pip3 install mysqlclient
+
+Collecting mysqlclient
+  Using cached mysqlclient-2.2.4-cp39-cp39-macosx_10_9_universal2.whl
+Installing collected packages: mysqlclient
+Successfully installed mysqlclient-2.2.4
+WARNING: You are using pip version 21.2.4; however, version 24.0 is available.
+You should consider upgrading via the '/Users/nathan/Dev/Labs/py-csv2sql/venv/bin/python3 -m pip install --upgrade pip' command.
+(venv) nathan@Zipcoders-MacBook-Pro-8 py-csv2sql % mysql
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+(venv) nathan@Zipcoders-MacBook-Pro-8 py-csv2sql % mysql -u nathan2 -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 33
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use data5zero;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_data5zero |
++---------------------+
+| book                |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> describe book;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| book_id    | int          | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(64)  | YES  |     | NULL    |                |
+| last_name  | varchar(64)  | YES  |     | NULL    |                |
+| title      | varchar(255) | YES  |     | NULL    |                |
+| publisher  | varchar(255) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from book;
++---------+------------+-------------+-----------------------------------------------------+----------------------+
+| book_id | first_name | last_name   | title                                               | publisher            |
++---------+------------+-------------+-----------------------------------------------------+----------------------+
+|       1 | Isaac      | Asimov      | Foundation                                          | Random House         |
+|       2 | Pearl      | Buck        | The Good Earth                                      | Random House         |
+|       3 | Tom        | Clancy      | The Hunt For Red October                            | Berkley              |
+|       4 | Tom        | Clancy      | Patriot Games                                       | Simon & Schuster     |
+|       5 | Stephen    | King        | It                                                  | Random House         |
+|       6 | Stephen    | King        | Dead Zone                                           | Random House         |
+|       7 | Stephen    | King        | The Shining                                         | Penguin Random House |
+|       8 | John       | Le Carre    | Tinker, Tailor, Soldier, Spy: A George Smiley Novel | Berkley              |
+|       9 | Alex       | Michaelides | The Silent Patient                                  | Simon & Schuster     |
+|      10 | Carol      | Shaben      | Into The Abyss                                      | Simon & Schuster     |
++---------+------------+-------------+-----------------------------------------------------+----------------------+
